@@ -1,0 +1,12 @@
+.logo {
+  display: flex;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+  flex-grow: 1;
+}
+
+.logo:hover {
+  opacity: .6;
+  transition: opacity .3s ease-in-out;
+}

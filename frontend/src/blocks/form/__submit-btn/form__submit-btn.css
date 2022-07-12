@@ -1,0 +1,21 @@
+.form__submit-btn {
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.78px;
+  color: #fff;
+  border-radius: 2px;
+  background-color: #000;
+}
+
+.form__submit-btn:hover {
+  opacity: .8;
+}
+
+@media (max-width: 424.9px) {
+  .form__submit-btn {
+    font-size: 14px;
+    line-height: 16.94px;
+  }
+}
