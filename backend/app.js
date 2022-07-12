@@ -7,6 +7,7 @@ const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const { RegExpURL } = require('./utils/constants');
 const { NotFoundError } = require('./errors/NotFoundError');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const PORT = 3000;
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
@@ -17,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
+
+app.use(requestLogger);
 
 app.post(
   '/signup',
@@ -52,6 +55,8 @@ app.use('/cards', require('./routes/cards'));
 app.use((req, res, next) => {
   next(new NotFoundError('Страница не существует'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
