@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'api.mesto-full.project-15.nomoredomains.xyz';
 
 const checkResponse = (res) => {
   if (res.ok) {
