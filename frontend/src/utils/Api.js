@@ -96,7 +96,6 @@ const api = new Api({
   baseUrl: 'api.mesto-full.project-15.nomoredomains.xyz',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
   }
 });
 
