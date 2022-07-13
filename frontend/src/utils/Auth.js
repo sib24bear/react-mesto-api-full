@@ -1,3 +1,4 @@
+//export const BASE_URL = 'http://localhost:3001';
 export const BASE_URL = 'api.mesto-full.project-15.nomoredomains.xyz';
 
 const checkResponse = (res) => {
@@ -28,17 +29,19 @@ export const authorize = (identifier, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({"email": identifier, "password": password})
+    body: JSON.stringify({"email": identifier, "password": password}),
+    credentials: 'include'
   })
   .then(checkResponse)
 };
 
-export const getContent = (token) => {
+export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-    }
+    },
+    credentials: 'include'
   })
   .then(checkResponse)
 }

@@ -45,12 +45,12 @@ function App() {
   }
 
   function handleCardLike(likes, id) {
-    const isLiked = likes.some(i => i._id === currentUser._id);
+    const isLiked = likes.some(i => i === currentUser._id);
 
     if (isLiked) {
       api.deleteLikeCard(id)
         .then((newCard) => {
-          setCardsData((state) => state.map((c) => c._id === id ? newCard : c));
+          setCardsData((state) => state.map((c) => c._id === id ? newCard.data : c));
         })
         .catch(err => {
           console.log(err);
@@ -58,7 +58,7 @@ function App() {
     } else {
       api.putLikeCard(id)
         .then((newCard) => {
-          setCardsData((state) => state.map((c) => c._id === id ? newCard : c));
+          setCardsData((state) => state.map((c) => c._id === id ? newCard.data : c));
         })
         .catch(err => {
           console.log(err);
@@ -73,7 +73,7 @@ function App() {
   function handleUpdateUser(name, about) {
     api.setUserInfo(name, about)
       .then((data) => {
-        setCurrentUser(data);
+        setCurrentUser(data.user);
         closeAllPopups();
       })
       .catch(err => {
@@ -88,7 +88,7 @@ function App() {
   function handleAddPlace(name, link) {
     api.setNewUserCard(name, link)
       .then((newCard) => {
-        setCardsData([newCard, ...cardsData]);
+        setCardsData([newCard.data, ...cardsData]);
         closeAllPopups();
       })
       .catch(err => {
@@ -103,7 +103,7 @@ function App() {
   function handleUpdateAvatar(link) {
     api.setUserAvatar(link)
       .then((data) => {
-        setCurrentUser(data);
+        setCurrentUser(data.user);
         closeAllPopups();
       })
       .catch(err => {
@@ -130,7 +130,7 @@ function App() {
   function getUserData() {
     api.getUserInfo()
     .then(res => {
-      setCurrentUser(res);
+      setCurrentUser(res.user);
     })
     .catch(err => {
       console.log(err);
@@ -140,7 +140,7 @@ function App() {
   function getCardsData() {
     api.getInitialCards()
     .then(res => {
-      setCardsData(res);
+      setCardsData(res.data);
     })
     .catch(err => {
       console.log(err);
@@ -187,11 +187,10 @@ function App() {
 
   function tokenCheck() {
     if (localStorage.getItem('jwt')){
-      const jwt = localStorage.getItem('jwt');
-      Auth.getContent(jwt).then((res) => {
+      Auth.getContent().then((res) => {
         if (res){
           setLoggedIn(true);
-          setUserEmail(res.data.email);
+          setUserEmail(res.user.email);
         }
       }).catch(err => {
         console.log(err);

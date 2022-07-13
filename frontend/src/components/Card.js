@@ -15,7 +15,7 @@ function Card({name, link, likes, owner, _id, onCardClick, onCardDelete, onCardL
   }
 
   function showCardLike(likes) {
-    const isLiked = likes.some(i => i._id === currentUser._id);
+    const isLiked = likes.some(i => i === currentUser._id);
 
     if (isLiked) {
       return ('place-card__button_active');
@@ -23,7 +23,7 @@ function Card({name, link, likes, owner, _id, onCardClick, onCardDelete, onCardL
   }
 
   function handleLikeClick() {
-    onCardLike(likes, _id)
+    onCardLike(likes, _id);
   }
 
   function handleCardClick() {
@@ -44,7 +44,7 @@ function Card({name, link, likes, owner, _id, onCardClick, onCardDelete, onCardL
           <button onClick={handleLikeClick} className={`button place-card__button button_type_add-like ${showCardLike(likes)}`} type="button" aria-label="Поставить лайк">
             <span className="place-card__like-counter">{likes.length ? likes.length : ''}</span>
           </button>
-          {showDeleteCardBtn(owner._id, _id)}
+          {showDeleteCardBtn(owner, _id)}
         </div>
       </div>
     </li>

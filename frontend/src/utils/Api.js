@@ -14,6 +14,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers,
+      credentials: 'include',
     })
     .then(res => this._checkResponse(res))
   }
@@ -21,6 +22,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
+      credentials: 'include',
     })
     .then(res => this._checkResponse(res))
   }
@@ -32,7 +34,8 @@ class Api {
       body: JSON.stringify({
         name: name,
         about: about
-      })
+      }),
+      credentials: 'include'
     })
     .then(res => this._checkResponse(res))
   }
@@ -44,7 +47,8 @@ class Api {
       body: JSON.stringify({
         name: name,
         link: link
-      })
+      }),
+      credentials: 'include'
     })
     .then(res => this._checkResponse(res))
   }
@@ -52,6 +56,7 @@ class Api {
   getUserCard() {
     return fetch(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers,
+      credentials: 'include',
     })
     .then(res => this._checkResponse(res))
   }
@@ -60,6 +65,7 @@ class Api {
     return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._options.headers,
+      credentials: 'include',
     })
     .then(res => this._checkResponse(res))
   }
@@ -68,6 +74,7 @@ class Api {
     return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._options.headers,
+      credentials: 'include',
     })
     .then(res => this._checkResponse(res))
   }
@@ -76,6 +83,7 @@ class Api {
     return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._options.headers,
+      credentials: 'include',
     })
     .then(res => this._checkResponse(res))
   }
@@ -86,17 +94,19 @@ class Api {
       headers: this._options.headers,
       body: JSON.stringify({
         avatar: link
-      })
+      }),
+      credentials: 'include',
     })
     .then(res => this._checkResponse(res))
   }
 }
 
 const api = new Api({
+  //baseUrl: 'http://localhost:3001',
   baseUrl: 'api.mesto-full.project-15.nomoredomains.xyz',
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
 });
 
 export default api;

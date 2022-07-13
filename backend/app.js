@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { celebrate, Joi, errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
@@ -19,21 +20,19 @@ app.use(cookieParser());
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-app.use(function(req, res, next) {
-  const method = req.method;
-  const requestHeaders = req.headers['access-control-request-headers'];
-  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
-
-  res.header('Access-Control-Allow-Origin', "*");
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
-
-  next();
-});
+app.use(cors({
+  credentials: true,
+  origin: [
+    'https://localhost:3001',
+    'https://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:3000',
+    'http://api.mesto-full.project-15.nomoredomains.xyz',
+    'https://api.mesto-full.project-15.nomoredomains.xyz',
+    'http://mesto-full.project-15.nomoredomains.xyz',
+    'https://mesto-full.project-15.nomoredomains.xyz',
+  ],
+}));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
