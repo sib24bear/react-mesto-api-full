@@ -103,7 +103,7 @@ class Api {
 
 const api = new Api({
   //baseUrl: 'http://localhost:3001',
-  baseUrl: 'api.mesto-full.project-15.nomoredomains.xyz',
+  baseUrl: 'https://api.mesto-full.project-15.nomoredomains.xyz',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { SALT_ROUNDS, SECRET_KEY } = require('../utils/constants');
+const { SALT_ROUNDS } = require('../utils/constants');
 const { NotFoundError } = require('../errors/NotFoundError');
 const { UnauthorizedError } = require('../errors/UnauthorizedError');
 
@@ -125,7 +125,7 @@ module.exports.login = (req, res, next) => {
         return;
       }
       // eslint-disable-next-line
-      return (jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: '7d' }));
+      return (jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '7d' }));
     })
     .then((token) => {
       res.cookie('token', token, {
